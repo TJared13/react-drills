@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+    constructor(){
+      super();
+      this.state = {
+        filterStr: '',
+        artists: ['Illenium', 'BTSM', 'Seven Lions', 'Skrux', 'SVDDEN DEATH', 'Slander', 'Blanke', 'Wooli', 'Abandoned', 'Apashe']
+      }
+    };
+
+    filterArtist(val){
+      this.setState({filterStr: val})
+    };
+
+    render(){
+      let filteredArtists = this.state.artists.filter(elem => elem.includes(this.state.filterStr)).map((elem, i) => {
+        return <h1 key={i}>{elem}</h1>
+      });
+
+      return(
+        <section>
+          <input className='inputText' placeholder='Filter Artist List' onChange={e => this.filterArtist(e.target.value) }/>
+          <div>{filteredArtists}</div>
+        </section>
+      )
+  }
 }
 
-export default App;
